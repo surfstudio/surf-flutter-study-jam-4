@@ -1,0 +1,16 @@
+com.example.surf_practice_chat_flutter.app-jetified-annotation-experimental-1.1.0-0 C:\Users\voya\.gradle\caches\transforms-3\4aa88baa28bebb2c5026ed42a8d72d9e\transformed\jetified-annotation-experimental-1.1.0\res
+com.example.surf_practice_chat_flutter.app-lifecycle-runtime-2.3.1-1 C:\Users\voya\.gradle\caches\transforms-3\6c2c81f732d2facfffa2b421dc5310d8\transformed\lifecycle-runtime-2.3.1\res
+com.example.surf_practice_chat_flutter.app-core-1.8.0-2 C:\Users\voya\.gradle\caches\transforms-3\8080c03c69ae6e597156442a38408c2a\transformed\core-1.8.0\res
+com.example.surf_practice_chat_flutter.app-jetified-window-1.0.0-beta04-3 C:\Users\voya\.gradle\caches\transforms-3\aa63b1d9f3d50daa819346953e1a95a0\transformed\jetified-window-1.0.0-beta04\res
+com.example.surf_practice_chat_flutter.app-jetified-core-ktx-1.8.0-4 C:\Users\voya\.gradle\caches\transforms-3\c79113a60911fe4cd197c4e51f7290c9\transformed\jetified-core-ktx-1.8.0\res
+com.example.surf_practice_chat_flutter.app-jetified-window-java-1.0.0-beta04-5 C:\Users\voya\.gradle\caches\transforms-3\f3e237183d5fb0dc1438664d84aebc84\transformed\jetified-window-java-1.0.0-beta04\res
+com.example.surf_practice_chat_flutter.app-debug-6 C:\Users\voya\Desktop\study-jam-4\surf-flutter-study-jam-4\android\app\src\debug\res
+com.example.surf_practice_chat_flutter.app-main-7 C:\Users\voya\Desktop\study-jam-4\surf-flutter-study-jam-4\android\app\src\main\res
+com.example.surf_practice_chat_flutter.app-pngs-8 C:\Users\voya\Desktop\study-jam-4\surf-flutter-study-jam-4\build\app\generated\res\pngs\debug
+com.example.surf_practice_chat_flutter.app-resValues-9 C:\Users\voya\Desktop\study-jam-4\surf-flutter-study-jam-4\build\app\generated\res\resValues\debug
+com.example.surf_practice_chat_flutter.app-rs-10 C:\Users\voya\Desktop\study-jam-4\surf-flutter-study-jam-4\build\app\generated\res\rs\debug
+com.example.surf_practice_chat_flutter.app-mergeDebugResources-11 C:\Users\voya\Desktop\study-jam-4\surf-flutter-study-jam-4\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
+com.example.surf_practice_chat_flutter.app-mergeDebugResources-12 C:\Users\voya\Desktop\study-jam-4\surf-flutter-study-jam-4\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
+com.example.surf_practice_chat_flutter.app-merged_res-13 C:\Users\voya\Desktop\study-jam-4\surf-flutter-study-jam-4\build\app\intermediates\merged_res\debug
+com.example.surf_practice_chat_flutter.app-packaged_res-14 C:\Users\voya\Desktop\study-jam-4\surf-flutter-study-jam-4\build\flutter_tts\intermediates\packaged_res\debug
+com.example.surf_practice_chat_flutter.app-packaged_res-15 C:\Users\voya\Desktop\study-jam-4\surf-flutter-study-jam-4\build\sensors_plus\intermediates\packaged_res\debug
