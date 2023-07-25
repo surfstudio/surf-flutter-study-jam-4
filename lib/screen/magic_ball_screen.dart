@@ -121,7 +121,7 @@ class _MagicBallState extends State<MagicBall> {
         children: [
           Center(
             child: Image(
-              image: AssetImage('images/magic_ball.png'),
+              image: AssetImage('docs/assets/loading.png'),
             ),
           ),
           Text(

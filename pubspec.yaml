@@ -26,6 +26,7 @@ dev_dependencies:
   flutter_lints: ^2.0.1
 flutter:
   assets:
+    - docs/assets/
     - images/magic_ball.png
     - sounds/
   uses-material-design: true
