@@ -26,3 +26,6 @@ flutter:
 
   assets:
     - assets/images/ball.png
+    - assets/images/ball_stars.png
+    - assets/images/ball_reading.png
+    - assets/images/ball_error.png
