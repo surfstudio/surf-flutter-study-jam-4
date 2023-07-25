@@ -1,7 +1,11 @@
 // import 'dart:convert';
 // import 'dart:math';
+import 'dart:convert';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:http/http.dart' as http;
+import 'package:surf_practice_magic_ball/constants/app_images.dart';
 import 'package:surf_practice_magic_ball/theme/app_theme.dart';
 
 class MagicBallScreen extends StatefulWidget {
@@ -12,11 +16,29 @@ class MagicBallScreen extends StatefulWidget {
 }
 
 class _MagicBallScreenState extends State<MagicBallScreen> {
+  List<String> answers = [
+    "Да",
+    "Нет",
+    "Возможно",
+    "Попробуй снова",
+    "Не уверен",
+    "Спроси позже",
+  ];
+
+  String currentAnswer = "";
+
+  void shakeBall() {
+    setState(() {
+      int randomIndex = Random().nextInt(answers.length);
+      currentAnswer = answers[randomIndex];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        width: ScreenUtil().screenWidth,
+        width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -31,30 +53,37 @@ class _MagicBallScreenState extends State<MagicBallScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 200.h,
+            const SizedBox(
+              height: 200,
             ),
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                Image.asset("assets/images/ball.png"),
-                Image.asset("assets/images/small star.png"),
-                Image.asset("assets/images/star.png"),
-              ],
+            GestureDetector(
+              onTap: shakeBall,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Image.asset(AppImages.ball),
+                  Image.asset(AppImages.smallStar),
+                  Image.asset(AppImages.star),
+                  Text(
+                    currentAnswer,
+                    style: const TextStyle(fontSize: 33, color: Colors.white),
+                  ),
+                ],
+              ),
             ),
             Stack(
               alignment: Alignment.center,
               children: [
                 Image.asset(
-                  "assets/images/Ellipse 7.png",
+                  AppImages.innerCircle,
                 ),
                 Image.asset(
-                  "assets/images/Ellipse 6.png",
+                  AppImages.outerCircle,
                 ),
               ],
             ),
             Padding(
-              padding: EdgeInsets.only(top: 100.h),
+              padding:  EdgeInsets.only(top: 100.h),
               child: Column(
                 children: [
                   Text(
