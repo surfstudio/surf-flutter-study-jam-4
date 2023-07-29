@@ -21,7 +21,7 @@ class MagicBallScreen extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              MagicBall(),
+              MagicBallAnimate(),
               SizedBox(height: 50),
               Text(
                 'Нажмите на шар \n или потрясите телефон',

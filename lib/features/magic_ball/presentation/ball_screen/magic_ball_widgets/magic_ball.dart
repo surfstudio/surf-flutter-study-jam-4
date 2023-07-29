@@ -1,27 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:surf_practice_magic_ball/features/magic_ball/presentation/ball_screen/magic_ball_widgets/animation_ball_controller.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:surf_practice_magic_ball/features/magic_ball/presentation/ball_screen/magic_ball_widgets/magic_ball_controller.dart';
 import 'package:surf_practice_magic_ball/gen/assets.gen.dart';
 import 'package:surf_practice_magic_ball/utils/theme_controller.dart';
 
+const floatingAnimationDuration = Duration(milliseconds: 1000);
+const shakingAnimationDuration = Duration(milliseconds: 100);
+const floatingTweenEnd = Offset(0, .05);
+const shakingTweenEnd = Offset(.03, 0);
+
 /// Widget for show and controll Magic Ball functions
-class MagicBall extends ConsumerStatefulWidget {
-  const MagicBall({super.key});
+class MagicBallAnimate extends HookConsumerWidget {
+  const MagicBallAnimate({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _MagicBallState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final controller = useAnimationController(
+      duration: floatingAnimationDuration,
+    )..repeat(reverse: true);
+    final tween = Tween<Offset>(
+      begin: Offset.zero,
+      end: floatingTweenEnd,
+    );
+    final animate = tween.animate(CurvedAnimation(
+      parent: controller,
+      curve: Curves.easeInOut,
+    ));
 
-// func for animate bounce ball
-double shake(double value) => (0.5 - Curves.bounceIn.transform(value)).abs();
+    ref.listen(responseBallControllerProvider, (_, state) {
+      final model = ref.watch(responseBallControllerProvider);
+      if (model is AsyncLoading) {
+        controller.duration = shakingAnimationDuration;
+        tween.end = shakingTweenEnd;
+      } else {
+        controller.duration = floatingAnimationDuration;
+        tween.end = floatingTweenEnd;
+      }
 
-class _MagicBallState extends ConsumerState<MagicBall>
-    with SingleTickerProviderStateMixin {
-  @override
-  Widget build(BuildContext context) {
-    // init and get settings for animation controller
-    final animateController = ref.watch(animationBallController(this));
+      controller.repeat(reverse: true);
+    });
+
     return GestureDetector(
       onTap: () {
         // check for escape many request while loading data
@@ -31,54 +50,59 @@ class _MagicBallState extends ConsumerState<MagicBall>
       },
       child: Column(
         children: <Widget>[
-          AnimatedBuilder(
-            animation: animateController,
-            builder: (context, child) => Transform.translate(
-              offset: Offset(0, 100 * shake(animateController.value)),
-              child: child,
-            ),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(500),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color.fromARGB(255, 98, 190, 221)
-                        .withOpacity(0.5),
-                    spreadRadius: 2,
-                    blurRadius: 30,
-                  ),
-                ],
-              ),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  ref.watch(themeModeProvider) == ThemeMode.light
-                      ? Assets.images.ballLight.image(height: 400, width: 400)
-                      : Assets.images.ballDark.image(height: 400, width: 400),
-                  AnimatedSwitcher(
-                    // switcher for fade effect when change state
-                    duration: const Duration(milliseconds: 1000),
-                    child: ref.watch(responseBallControllerProvider).when(
-                          // watch for all states
-                          data: (data) => data != null
-                              ? Text(data.reading)
-                              : stars(errorState: false),
-                          error: (error, _) => stars(errorState: true),
-                          loading: () =>
-                              ref.watch(themeModeProvider) == ThemeMode.light
-                                  ? Assets.images.ballLoadingLight.image(
-                                      height: 350,
-                                      width: 350,
-                                    )
-                                  : Assets.images.ballLoadingDark.image(
-                                      height: 350,
-                                      width: 350,
-                                    ),
+          SlideTransition(
+            position: animate,
+            child: const MagicBall(),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class MagicBall extends ConsumerWidget {
+  const MagicBall({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final lightThemeMode = ref.watch(themeModeProvider) == ThemeMode.light;
+
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(500),
+        boxShadow: [
+          BoxShadow(
+            color: const Color.fromARGB(255, 98, 190, 221).withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 30,
+          ),
+        ],
+      ),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          lightThemeMode
+              ? Assets.images.ballLight.image(height: 400, width: 400)
+              : Assets.images.ballDark.image(height: 400, width: 400),
+          AnimatedSwitcher(
+            // switcher for fade effect when change state
+            duration: const Duration(milliseconds: 1000),
+            child: ref.watch(responseBallControllerProvider).when(
+                  // watch for all states
+                  data: (data) => data != null
+                      ? Text(data.reading)
+                      : stars(errorState: false),
+                  error: (error, _) => stars(errorState: true),
+                  loading: () => lightThemeMode
+                      ? Assets.images.ballLoadingLight.image(
+                          height: 350,
+                          width: 350,
+                        )
+                      : Assets.images.ballLoadingDark.image(
+                          height: 350,
+                          width: 350,
                         ),
-                  ),
-                ],
-              ),
-            ),
+                ),
           ),
         ],
       ),

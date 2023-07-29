@@ -40,9 +40,11 @@ class ResponseBallController extends AutoDisposeAsyncNotifier<RandomReading?> {
     }
     state = const AsyncLoading();
     // syntax sugar replacment try/catch bloc
-    state = await AsyncValue.guard(
-      () => responseBallRepository.getRepsonseFromBall(),
-    );
+    await Future.delayed(const Duration(milliseconds: 2000));
+    state = AsyncValue.data(RandomReading(reading: 'value'));
+    // state = await AsyncValue.guard(
+    //   () => responseBallRepository.getRepsonseFromBall(),
+    // );
     await Future.delayed(const Duration(milliseconds: 1000)).then((value) {
       ref.read(timeoutProvider.notifier).state =
           true; // after this, can do query
