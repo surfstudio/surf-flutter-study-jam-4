@@ -21,9 +21,15 @@ class MagicBallScreen extends StatelessWidget {
           Magic8BallWidget(
             diameter: size.shortestSide,
             lightSource: lightSource,
-            child: WindowOfOpportunityWidget(
-              lightSource: lightSource,
-              child: PredictionTextWidget(text: prediction),
+            child: Transform(
+              origin: size.center(Offset.zero),
+              transform: Matrix4.identity()..scale(0.5),
+              child: Center(
+                child: WindowOfOpportunityWidget(
+                  lightSource: lightSource,
+                  child: PredictionTextWidget(text: prediction),
+                ),
+              ),
             ),
           ),
           ShadowOfDoubtWidget(diameter: size.shortestSide),
