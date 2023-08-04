@@ -14,6 +14,8 @@ class WindowOfOpportunityWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final innerShadowWidth = lightSource.distance * 0.1;
     return Container(
+      height: 200.0,
+      width: 200.0,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         gradient: RadialGradient(

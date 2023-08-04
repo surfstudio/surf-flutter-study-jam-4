@@ -27,7 +27,7 @@ class MagicBallScreen extends StatelessWidget {
               child: Center(
                 child: WindowOfOpportunityWidget(
                   lightSource: lightSource,
-                  child: PredictionTextWidget(text: prediction),
+                  child: Center(child: PredictionTextWidget(text: prediction)),
                 ),
               ),
             ),
