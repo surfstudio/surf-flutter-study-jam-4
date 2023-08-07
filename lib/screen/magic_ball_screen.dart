@@ -23,13 +23,13 @@ class _MagicBallScreenState extends State<MagicBallScreen> {
   }
 
   void initialization() async {
-    print('ready in 3...');
-    await Future.delayed(const Duration(seconds: 1));
-    print('ready in 2...');
-    await Future.delayed(const Duration(seconds: 1));
-    print('ready in 1...');
-    await Future.delayed(const Duration(seconds: 1));
-    print('go!');
+    // print('ready in 3...');
+    // await Future.delayed(const Duration(seconds: 1));
+    // print('ready in 2...');
+    // await Future.delayed(const Duration(seconds: 1));
+    // print('ready in 1...');
+    // await Future.delayed(const Duration(seconds: 1));
+    // print('go!');
     FlutterNativeSplash.remove();
   }
 
@@ -39,24 +39,27 @@ class _MagicBallScreenState extends State<MagicBallScreen> {
     const lightSource = Offset(0, -0.75);
     String prediction = 'The MAGIC\n8-Ball';
     return Scaffold(
-      body: Stack(
-        children: [
-          Magic8BallWidget(
-            diameter: size.shortestSide,
-            lightSource: lightSource,
-            child: Transform(
-              origin: size.center(Offset.zero),
-              transform: Matrix4.identity()..scale(0.5),
-              child: Center(
-                child: WindowOfOpportunityWidget(
-                  lightSource: lightSource,
-                  child: Center(child: PredictionTextWidget(text: prediction)),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Stack(
+          children: [
+            Magic8BallWidget(
+              diameter: size.shortestSide,
+              lightSource: lightSource,
+              child: Transform(
+                origin: size.center(Offset.zero),
+                transform: Matrix4.identity()..scale(1.0),
+                child: Center(
+                  child: WindowOfOpportunityWidget(
+                    lightSource: lightSource,
+                    child: Center(child: PredictionTextWidget(text: prediction)),
+                  ),
                 ),
               ),
             ),
-          ),
-          ShadowOfDoubtWidget(diameter: size.shortestSide),
-        ],
+            ShadowOfDoubtWidget(diameter: size.shortestSide),
+          ],
+        ),
       ),
     );
   }
@@ -120,7 +123,6 @@ class _ShadowOfDoubtWidgetState extends State<ShadowOfDoubtWidget> {
         decoration: BoxDecoration(
           // color: DarkThemeColors.textColor,
           shape: BoxShape.circle,
-
           boxShadow: [
             BoxShadow(
               blurRadius: 25,
