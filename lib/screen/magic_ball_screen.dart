@@ -1,14 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:surf_practice_magic_ball/core/dark_theme_colors.dart';
 import 'dart:math' as math;
 
 import 'package:surf_practice_magic_ball/screen/components/WindowsOfOpportunityWidget.dart';
 import 'package:surf_practice_magic_ball/screen/components/prediction_text_widget.dart';
 
-class MagicBallScreen extends StatelessWidget {
+class MagicBallScreen extends StatefulWidget {
   const MagicBallScreen({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<MagicBallScreen> createState() => _MagicBallScreenState();
+}
+
+class _MagicBallScreenState extends State<MagicBallScreen> {
+  @override
+  void initState() {
+    super.initState();
+    initialization();
+  }
+
+  void initialization() async {
+    print('ready in 3...');
+    await Future.delayed(const Duration(seconds: 1));
+    print('ready in 2...');
+    await Future.delayed(const Duration(seconds: 1));
+    print('ready in 1...');
+    await Future.delayed(const Duration(seconds: 1));
+    print('go!');
+    FlutterNativeSplash.remove();
+  }
 
   @override
   Widget build(BuildContext context) {
