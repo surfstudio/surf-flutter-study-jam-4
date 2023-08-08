@@ -16,6 +16,11 @@ class MagicBallScreen extends StatefulWidget {
 }
 
 class _MagicBallScreenState extends State<MagicBallScreen> {
+  static const lightSource = Offset(0, 0.75);
+  static const restPosition = Offset(0, -0.15);
+  String prediction = 'The MAGIC\n8-Ball';
+  Offset tapPosition = Offset.zero;
+
   @override
   void initState() {
     super.initState();
@@ -36,32 +41,41 @@ class _MagicBallScreenState extends State<MagicBallScreen> {
   @override
   Widget build(BuildContext context) {
     final size = Size.square(MediaQuery.of(context).size.shortestSide);
-    const lightSource = Offset(0, -0.75);
-    String prediction = 'The MAGIC\n8-Ball';
+    final windowPosition = tapPosition == Offset.zero ? restPosition : tapPosition;
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Stack(
           children: [
-            Magic8BallWidget(
-              diameter: size.shortestSide,
-              lightSource: lightSource,
-              child: Transform(
-                origin: size.center(Offset.zero),
-                transform: Matrix4.identity()..scale(1.0),
-                child: Center(
-                  child: WindowOfOpportunityWidget(
-                    lightSource: lightSource,
-                    child: Center(child: PredictionTextWidget(text: prediction)),
+            ShadowOfDoubtWidget(diameter: size.shortestSide),
+            GestureDetector(
+              onPanUpdate: (details) => _update(details.localPosition, size),
+              child: Magic8BallWidget(
+                diameter: size.shortestSide,
+                lightSource: lightSource,
+                child: Transform(
+                  origin: size.center(Offset.zero),
+                  transform: Matrix4.identity()
+                    ..translate(windowPosition.dx * size.width / 2, windowPosition.dy * size.height / 2)
+                    ..scale(1.0),
+                  child: Center(
+                    child: WindowOfOpportunityWidget(
+                      lightSource: lightSource,
+                      child: Center(child: PredictionTextWidget(text: prediction)),
+                    ),
                   ),
                 ),
               ),
             ),
-            ShadowOfDoubtWidget(diameter: size.shortestSide),
           ],
         ),
       ),
     );
+  }
+
+  void _update(Offset position, Size size) {
+    Offset tapPosition = Offset((2 * position.dx / size.width) - 1, (2 * position.dy / size.height) - 1);
+    setState(() => this.tapPosition = tapPosition);
   }
 }
 
@@ -84,15 +98,16 @@ class Magic8BallWidget extends StatefulWidget {
 class _Magic8BallWidgetState extends State<Magic8BallWidget> {
   @override
   Widget build(BuildContext context) {
+    final size = Size.square(MediaQuery.of(context).size.shortestSide);
     const lightSource = Offset(0, -0.75);
     return Container(
       decoration: BoxDecoration(
         color: DarkThemeColors.textColor,
         shape: BoxShape.circle,
         gradient: RadialGradient(
-          colors: const [DarkThemeColors.backgroundColor, DarkThemeColors.aroundBallColor],
-          center: Alignment(lightSource.dx, lightSource.dy),
-          radius: 0.8,
+          colors: const [DarkThemeColors.aroundBallColor, DarkThemeColors.backgroundColor],
+          center: Alignment(lightSource.dx + 1, lightSource.dy),
+          radius: 0.7,
         ),
       ),
       child: widget.child,
@@ -118,7 +133,7 @@ class _ShadowOfDoubtWidgetState extends State<ShadowOfDoubtWidget> {
     // final size = Size.square(MediaQuery.of(context).size.shortestSide);
     return Transform(
       transform: Matrix4.identity()..rotateX(math.pi / 2.1),
-      origin: const Offset(0, 650),
+      origin: const Offset(100, 1000),
       child: Container(
         decoration: BoxDecoration(
           // color: DarkThemeColors.textColor,
