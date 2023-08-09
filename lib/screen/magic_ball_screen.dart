@@ -42,40 +42,30 @@ class _MagicBallScreenState extends State<MagicBallScreen> {
   Widget build(BuildContext context) {
     final size = Size.square(MediaQuery.of(context).size.shortestSide);
     final windowPosition = tapPosition == Offset.zero ? restPosition : tapPosition;
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Stack(
-          children: [
-            ShadowOfDoubtWidget(diameter: size.shortestSide),
-            GestureDetector(
-              onPanUpdate: (details) => _update(details.localPosition, size),
-              child: Magic8BallWidget(
-                diameter: size.shortestSide,
-                lightSource: lightSource,
-                child: Transform(
-                  origin: size.center(Offset.zero),
-                  transform: Matrix4.identity()
-                    ..translate(windowPosition.dx * size.width / 2, windowPosition.dy * size.height / 2)
-                    ..scale(1.0),
-                  child: Center(
-                    child: WindowOfOpportunityWidget(
-                      lightSource: lightSource,
-                      child: Center(child: PredictionTextWidget(text: prediction)),
-                    ),
-                  ),
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Stack(
+        children: [
+          ShadowOfDoubtWidget(diameter: size.shortestSide),
+          Magic8BallWidget(
+            diameter: size.shortestSide,
+            lightSource: lightSource,
+            child: Transform(
+              origin: size.center(Offset.zero),
+              transform: Matrix4.identity()
+                ..translate(windowPosition.dx * size.width / 2, windowPosition.dy * size.height / 2)
+                ..scale(1.0),
+              child: Center(
+                child: WindowOfOpportunityWidget(
+                  lightSource: lightSource,
+                  child: Center(child: PredictionTextWidget(text: prediction)),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
-  }
-
-  void _update(Offset position, Size size) {
-    Offset tapPosition = Offset((2 * position.dx / size.width) - 1, (2 * position.dy / size.height) - 1);
-    setState(() => this.tapPosition = tapPosition);
   }
 }
 

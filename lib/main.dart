@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:surf_practice_magic_ball/domain/blocs/theme/theme_bloc.dart';
+import 'package:surf_practice_magic_ball/screen/components/rules.dart';
 import 'package:surf_practice_magic_ball/screen/magic_ball_screen.dart';
 
 void main() async {
@@ -33,7 +34,19 @@ class MyApp extends StatelessWidget {
             //   useMaterial3: true,
             // ),
             theme: state.theme,
-            home: const MagicBallScreen(),
+            home: Scaffold(
+              appBar: AppBar(),
+              body: Container(
+                margin: const EdgeInsets.all(10),
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    MagicBallScreen(),
+                    RulesForBallWidget(),
+                  ],
+                ),
+              ),
+            ),
           );
         },
       ),
