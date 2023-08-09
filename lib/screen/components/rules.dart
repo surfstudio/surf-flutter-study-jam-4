@@ -8,8 +8,9 @@ class RulesForBallWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Text(
       'Нажмите на шар\n'
-      'или потрясите планшет\n',
+      'или потрясите телефон\n',
       style: TextStyle(color: DarkThemeColors.textColor),
+      textAlign: TextAlign.center,
     );
   }
 }

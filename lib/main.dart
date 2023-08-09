@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
               body: Container(
                 margin: const EdgeInsets.all(10),
                 child: const Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     MagicBallScreen(),
                     RulesForBallWidget(),

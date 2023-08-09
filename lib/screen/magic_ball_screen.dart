@@ -41,30 +41,27 @@ class _MagicBallScreenState extends State<MagicBallScreen> {
   @override
   Widget build(BuildContext context) {
     final size = Size.square(MediaQuery.of(context).size.shortestSide);
-    final windowPosition = tapPosition == Offset.zero ? restPosition : tapPosition;
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Stack(
-        children: [
-          ShadowOfDoubtWidget(diameter: size.shortestSide),
-          Magic8BallWidget(
-            diameter: size.shortestSide,
-            lightSource: lightSource,
-            child: Transform(
-              origin: size.center(Offset.zero),
-              transform: Matrix4.identity()
-                ..translate(windowPosition.dx * size.width / 2, windowPosition.dy * size.height / 2)
-                ..scale(1.0),
-              child: Center(
-                child: WindowOfOpportunityWidget(
-                  lightSource: lightSource,
-                  child: Center(child: PredictionTextWidget(text: prediction)),
-                ),
+    // final windowPosition = tapPosition == Offset.zero ? restPosition : tapPosition;
+    return Stack(
+      children: [
+        ShadowOfDoubtWidget(diameter: size.shortestSide),
+        Magic8BallWidget(
+          diameter: size.shortestSide,
+          lightSource: lightSource,
+          child: Transform(
+            origin: size.center(Offset.zero),
+            transform: Matrix4.identity()
+              ..translate(restPosition.dx * size.width / 2, restPosition.dy * size.height / 2)
+              ..scale(1.0),
+            child: Center(
+              child: WindowOfOpportunityWidget(
+                lightSource: lightSource,
+                child: Center(child: PredictionTextWidget(text: prediction)),
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -89,23 +86,23 @@ class _Magic8BallWidgetState extends State<Magic8BallWidget> {
   @override
   Widget build(BuildContext context) {
     final size = Size.square(MediaQuery.of(context).size.shortestSide);
-    const lightSource = Offset(0, -0.75);
+    const lightSource = Offset(0, 0.75);
     return Container(
-      decoration: BoxDecoration(
-        color: DarkThemeColors.textColor,
-        shape: BoxShape.circle,
-        gradient: RadialGradient(
-          colors: const [DarkThemeColors.aroundBallColor, DarkThemeColors.backgroundColor],
-          center: Alignment(lightSource.dx + 1, lightSource.dy),
-          radius: 0.7,
-        ),
-      ),
+      // decoration: BoxDecoration(
+      //   color: DarkThemeColors.textColor,
+      //   shape: BoxShape.circle,
+      //   gradient: RadialGradient(
+      //     colors: const [DarkThemeColors.aroundBallColor, DarkThemeColors.backgroundColor],
+      //     center: Alignment(lightSource.dx, lightSource.dy),
+      //     radius: 1.0,
+      //   ),
+      // ),
       child: widget.child,
     );
   }
 }
 
-class ShadowOfDoubtWidget extends StatefulWidget {
+class ShadowOfDoubtWidget extends StatelessWidget {
   const ShadowOfDoubtWidget({
     Key? key,
     required this.diameter,
@@ -114,26 +111,25 @@ class ShadowOfDoubtWidget extends StatefulWidget {
   final double diameter;
 
   @override
-  State<ShadowOfDoubtWidget> createState() => _ShadowOfDoubtWidgetState();
-}
-
-class _ShadowOfDoubtWidgetState extends State<ShadowOfDoubtWidget> {
-  @override
   Widget build(BuildContext context) {
     // final size = Size.square(MediaQuery.of(context).size.shortestSide);
     return Transform(
-      transform: Matrix4.identity()..rotateX(math.pi / 2.1),
-      origin: const Offset(100, 1000),
-      child: Container(
-        decoration: BoxDecoration(
-          // color: DarkThemeColors.textColor,
-          shape: BoxShape.circle,
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 25,
-              color: DarkThemeColors.aroundBallColor.withOpacity(0.6),
-            ),
-          ],
+      origin: Offset(0, diameter),
+      transform: Matrix4.identity()..rotateX(math.pi / 1.85),
+      child: Center(
+        child: Container(
+          height: diameter,
+          width: 100,
+          decoration: BoxDecoration(
+            color: DarkThemeColors.aroundBallColor,
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 25,
+                color: DarkThemeColors.aroundBallColor.withOpacity(0.6),
+              ),
+            ],
+          ),
         ),
       ),
     );
