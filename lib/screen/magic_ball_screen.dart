@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:surf_practice_magic_ball/core/dark_theme_colors.dart';
+import 'package:surf_practice_magic_ball/resources/resources.dart';
 import 'dart:math' as math;
 
 import 'package:surf_practice_magic_ball/screen/components/WindowsOfOpportunityWidget.dart';
@@ -56,7 +57,15 @@ class _MagicBallScreenState extends State<MagicBallScreen> {
             child: Center(
               child: WindowOfOpportunityWidget(
                 lightSource: lightSource,
-                child: Center(child: PredictionTextWidget(text: prediction)),
+                child: Center(
+                  child: Stack(
+                    children: [
+                      Image.asset(AppImages.ballStars),
+                      PredictionTextWidget(text: prediction),
+                    ],
+                  ),
+                  // child: PredictionTextWidget(text: prediction),
+                ),
               ),
             ),
           ),
