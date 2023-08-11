@@ -57,14 +57,13 @@ class _MagicBallScreenState extends State<MagicBallScreen> {
             child: Center(
               child: WindowOfOpportunityWidget(
                 lightSource: lightSource,
-                child: Center(
-                  child: Stack(
-                    children: [
-                      Image.asset(AppImages.ballStars),
-                      PredictionTextWidget(text: prediction),
-                    ],
-                  ),
-                  // child: PredictionTextWidget(text: prediction),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Image.asset(AppImages.ballStars),
+                    Image.asset(AppImages.smallStars),
+                    PredictionTextWidget(text: prediction),
+                  ],
                 ),
               ),
             ),
