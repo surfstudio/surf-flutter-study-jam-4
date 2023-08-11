@@ -19,7 +19,7 @@ class MagicBallScreen extends StatefulWidget {
 class _MagicBallScreenState extends State<MagicBallScreen> {
   static const lightSource = Offset(0, 0.75);
   static const restPosition = Offset(0, -0.15);
-  String prediction = 'The MAGIC\n8-Ball';
+  String prediction = 'Весьма\n сомнительно';
   Offset tapPosition = Offset.zero;
 
   @override
@@ -62,7 +62,7 @@ class _MagicBallScreenState extends State<MagicBallScreen> {
                   children: [
                     Image.asset(AppImages.ballStars),
                     Image.asset(AppImages.smallStars),
-                    PredictionTextWidget(text: prediction),
+                    // PredictionTextWidget(text: prediction),
                   ],
                 ),
               ),
